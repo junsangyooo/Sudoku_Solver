@@ -34,10 +34,10 @@ def get_InvPerspective(img, masked_num, location, height = 900, width = 900):
 
 def find_board(img):
     """Takes an image as input and finds a sudoku board inside of the image"""
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    bfilter = cv2.bilateralFilter(gray, 13, 20, 20)
-    edged = cv2.Canny(bfilter, 30, 180)
-    keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)    # covert the image into the grayscale mode to detect countours
+    bfilter = cv2.bilateralFilter(gray, 13, 20, 20) # removes some noises from the image.
+    edged = cv2.Canny(bfilter, 30, 180) # detect edges in the image.
+    keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) # detect all the continuous points within the edges
     contours  = imutils.grab_contours(keypoints)
 
     newimg = cv2.drawContours(img.copy(), contours, -1, (0, 255, 0), 3)
